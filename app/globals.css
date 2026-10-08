@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Tokens: 8px spacing, 3 radii (8/12/16), one accent (survey amber). Channels so alpha works. */
+:root {
+  --bg: 243 245 247;
+  --surface: 255 255 255;
+  --raised: 236 239 243;
+  --line: 20 30 45;
+  --fg: 14 20 30;
+  --muted: 92 104 120;
+  --accent: 138 96 4;
+  --accent-fg: 255 255 255;
+  --water: 38 108 190;
+  --ok: 22 132 96;
+  --bad: 190 52 52;
+}
+.dark {
+  --bg: 14 17 22;
+  --surface: 21 26 33;
+  --raised: 29 35 44;
+  --line: 255 255 255;
+  --fg: 236 240 245;
+  --muted: 140 152 168;
+  --accent: 236 186 52;
+  --accent-fg: 24 18 4;
+  --water: 104 160 230;
+  --ok: 84 196 150;
+  --bad: 240 120 112;
+}
+@layer base {
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight;
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+@layer components {
+  .hairline {
+    border: 1px solid rgb(var(--line) / 0.1);
+  }
+  .t-display {
+    @apply font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.02] font-semibold;
+  }
+  .t-h2 {
+    @apply text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.1] font-semibold;
+  }
+  .t-body {
+    @apply text-base leading-7 text-muted max-w-[60ch];
+  }
+}
+/* Login cleaning animation */
+@keyframes sweep {
+  0%,
+  100% {
+    transform: rotate(14deg);
+  }
+  50% {
+    transform: rotate(-16deg);
+  }
+}
+@keyframes litter {
+  0%,
+  15% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  65%,
+  100% {
+    transform: translateX(130px);
+    opacity: 0;
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.broom {
+  transform-origin: 120px 30px;
+  animation: sweep 3s ease-in-out infinite;
+}
+.debris {
+  animation: litter 3s ease-in infinite;
+}
+.debris.d2 {
+  animation-delay: 0.25s;
+}
+.debris.d3 {
+  animation-delay: 0.5s;
+}
+.spark {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: twinkle 3s ease-in-out infinite;
+}
